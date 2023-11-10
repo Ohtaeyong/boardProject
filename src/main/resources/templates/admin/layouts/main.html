@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <title th:if="${pageTitle != null}" th:text="${pageTitle}"></title>
+
+    <link rel="stylesheet" type="text/css" th:href="@{/common/css/style.css}"><!-- 공통적인(관리자포함) css -->
+    <link rel="stylesheet" type="text/css" th:each="file : ${addCommonCss}"
+          th:href="@{/common/css/{file}.css(file=${file})}">
+
+
+    <link rel="stylesheet" type="text/css" th:href="@{/admin/css/style.css}"><!-- PC상의 css -->
+    <link rel="stylesheet" type="text/css" th:each="file : ${addCss}"
+          th:href="@{/admin/css/{file}.css(file=${file})}">
+
+    <th:block layout:fragment="addCss"></th:block>
+
+    <script th:src="@{/common/js/common.js}"></script><!-- 공통적인(관리자포함) js -->
+    <script th:each="file : ${addCommonScript}" th:src="@{/common/js/{file}.js(file=${file})}"></script>
+
+    <script th:src="@{/admin/js/common.js}"></script>
+    <script th:each="file : ${addScript}" th:src="@{/admin/js/{file}.js(file=${file})}"></script>
+
+    <th:block layout:fragment="addScript"></th:block>
+
+</head>
+<body>
+<header th:replace="~{admin/outlines/header::common}"></header>
+<main layout:fragment="content"></main>
+<footer th:replace="~{admin/outlines/footer::common}"></footer>
+<iframe name="ifrmProcess" class="dn"></iframe>
+</body>
+</html>
