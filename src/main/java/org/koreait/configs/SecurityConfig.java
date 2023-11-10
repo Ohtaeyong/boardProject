@@ -10,6 +10,6 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        return http.build();
+        return http.build(); // 설정 무력화 (서버켰을시 로그인화면 X)
     }
 }
