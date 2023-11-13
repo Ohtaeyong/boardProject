@@ -29,18 +29,18 @@ public class LoginFailureHandler implements AuthenticationFailureHandler { // �
 
         /* 필수 항목 검증 - email, password S*/
         if (email == null || email.isBlank()) {
-            session.setAttribute("NotBlank_email", Utils.getMessage("NotBlank_email", "validation"));
+            session.setAttribute("NotBlank_email", Utils.getMessage("NotBlank.email", "validation"));
             isRequiredFieldCheck = true;
         }
 
         if (password == null || password.isBlank()) {
-            session.setAttribute("NotBlank_password", Utils.getMessage("NotBlank_password", "validation"));
+            session.setAttribute("NotBlank_password", Utils.getMessage("NotBlank.password", "validation"));
             isRequiredFieldCheck = true;
         }
         /* 필수 항목 검증 - email, password E*/
 
         if (!isRequiredFieldCheck) { // 아이디가 없거나 비밀번호가 잘못된 경우
-            session.setAttribute("globalError", Utils.getMessage("Login_fail", "validation"));
+            session.setAttribute("globalError", Utils.getMessage("Login.fail", "validation"));
         }
 
         response.sendRedirect(request.getContextPath() + "/member/login");
