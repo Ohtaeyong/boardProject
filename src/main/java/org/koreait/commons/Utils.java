@@ -52,4 +52,11 @@ public class Utils {
     public String tpl(String tplPath) {
         return String.format("%s/" + tplPath, isMobile() ? "mobile" : "front");
     }
+
+    public static void loginInit(HttpSession session) { // 로그인 초기화 (공통적인 부분이 있어 여기에)
+        session.removeAttribute("email");
+        session.removeAttribute("NotBlank_email");
+        session.removeAttribute("NotBlank_password");
+        session.removeAttribute("globalError");
+    }
 }

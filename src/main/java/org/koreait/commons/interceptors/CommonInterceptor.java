@@ -4,6 +4,7 @@ package org.koreait.commons.interceptors;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import org.koreait.commons.Utils;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
@@ -27,5 +28,11 @@ public class CommonInterceptor implements HandlerInterceptor {
             session.setAttribute("device", device.toLowerCase().equals("mobile") ? "mobile" : "pc");
         }
         /* PC, Mobile 수동 변경 처리 E */
+
+        /* 로그인 페이지 아닐 경우 로그인 유효성 검사 세션 삭제 처리 */
+        String URI = request.getRequestURI();
+        if (URI.indexOf("/member/login") == -1) { // -1이면 로그인 페이지가 아니다
+            Utils.loginInit(session);
+        }
     }
 }
