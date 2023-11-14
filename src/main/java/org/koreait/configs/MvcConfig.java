@@ -27,6 +27,12 @@ public class MvcConfig implements WebMvcConfigurer {
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/")
                 .setViewName("front/main/index"); // 임시
+        
+        registry.addViewController("/mypage")
+                .setViewName("front/main/index"); // 접근 통제 확인용
+
+        registry.addViewController("/admin")
+                .setViewName("front/main/index"); // 관리자용 임시 주소
     }
 
     @Override
