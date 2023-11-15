@@ -13,29 +13,42 @@ spring:
     username: PROJECT
     password: _aA123456
 
-  # 파일 업로드 설정(들여쓰기 주의)
+  # JPA 설정
+  jpa:
+    properties:
+      hibernate:
+        # 실행되는 쿼리를 콘솔에 출력
+        show_sql: true
+        # 콘솔창의 쿼리문 줄개행 처리
+        format_sql: true
+        use_sql_comments: true
+        dialect: org.hibernate.dialect.OracleDialect
+    # 엔티티에 정의된 필드명을 보고 알아서 테이블이 만들어짐
+    hibernate:
+      ddlAuto: create
+
+  # 파일 업로드 설정
   servlet:
     multipart:
       maxFileSize: 20MB
       maxRequestSize: 40MB
 
-  # 정적 자원 설정(CSS, JS, 이미지)(서버 껐다켰다 안해도 될 수 있게)
+  # 정적 자원 설정(CSS, JS, 이미지)
   resources:
     staticLocations: file:src/main/resources/static/
 
-  # 라이브 리로드 설정(나중에 꼭 꺼야됨 (서버부담))
+  # 라이브 리로드 설정
   devtools:
     livereload:
-      enable: true
+      enabled: true
 
   # 타임리프 설정
   thymeleaf:
     cache: false
     prefix: file:src/main/resources/templates/
 
-  # 입력한 sql 초기에 실행
   flyway:
-    enable: true
+    enabled: true
 
 file:
   upload:
@@ -46,5 +59,7 @@ file:
 logging:
   level:
     org:
-      springframework:
-        jdbc: trace
+      hibernate:
+        type:
+          descriptor:
+            sql: trace
