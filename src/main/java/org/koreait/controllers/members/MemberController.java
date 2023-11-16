@@ -1,14 +1,17 @@
 package org.koreait.controllers.members;
 
+import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.koreait.commons.MemberUtil;
 import org.koreait.commons.Utils;
+import org.koreait.entities.BoardData;
 import org.koreait.entities.Member;
 import org.koreait.models.member.MemberInfo;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,11 +23,14 @@ import java.security.Principal;
 @Controller
 @RequestMapping("/member")
 @RequiredArgsConstructor
+@Transactional
 public class MemberController {
 
     private final Utils utils;
 
     private final MemberUtil memberUtil;
+
+    private final EntityManager em;
 
     @GetMapping("/join")
     public String join() {
@@ -43,11 +49,16 @@ public class MemberController {
     @GetMapping("/info")
     public void info() {
 
-        Member member = memberUtil.getMember();
-        if (memberUtil.isLogin()) {
-            log.info(member.toString());
-        }
-        log.info("로그인 여부 : {}", memberUtil.isLogin());
+        BoardData data = BoardData.builder()
+                .subject("제목")
+                .content("내용")
+                .build();
+
+        em.persist(data);
+        em.flush();
+
+        data.setSubject("(수정)제목");
+        em.flush();
     }
     /*
     public void info() {
