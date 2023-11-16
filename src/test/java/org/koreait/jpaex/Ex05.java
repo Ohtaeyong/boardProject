@@ -19,7 +19,7 @@ public class Ex05 {
     private BoardDataRepository repository;
 
     @Test
-    void test1() {
+    void test1() { //
         QBoardData boardData = QBoardData.boardData;
         //BooleanExpression cond1 = boardData.subject.contains("목");
 
