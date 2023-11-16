@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @Builder
 @Entity
 @NoArgsConstructor @AllArgsConstructor
-public class BoardData {
+public class BoardData extends Base {
 
     @Id @GeneratedValue
     private Long seq; // 게시글 번호
@@ -26,11 +26,5 @@ public class BoardData {
     @Column(nullable = false)
     private String content;
 
-    @Column(updatable = false)
-    @CreationTimestamp
-    private LocalDateTime regDt; // 등록일자
 
-    @Column(insertable = false)
-    @UpdateTimestamp
-    private LocalDateTime modDt; // 수정일자
 }

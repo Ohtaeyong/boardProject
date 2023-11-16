@@ -19,7 +19,7 @@ import java.time.LocalDateTime;
         @Index(name = "idx_member_userNm", columnList = "userNm"),
         @Index(name = "idx_member_mobile", columnList = "mobile")
 })
-public class Member {
+public class Member extends Base {
 
     @Id @GeneratedValue(strategy = GenerationType.AUTO) // 자동으로 시퀀스 객체 생성
     private Long userNo;
@@ -43,13 +43,14 @@ public class Member {
 //    @Lob
 //    private String introduction; // ex 게시글
 
-    @Column(updatable = false) // 한번 insert될 때 추가 되고 수정X
-    @CreationTimestamp // 표준은 아니라 안쓰게 될 것
-    private LocalDateTime regDt;
-
-    @Column(insertable = false) // 수정될 때만 추가
-    @UpdateTimestamp // update시에 쿼리 추가
-    private LocalDateTime modDt;
+    // 11-16 Base에 있으므로 주석
+//    @Column(updatable = false) // 한번 insert될 때 추가 되고 수정X
+//    @CreationTimestamp // 표준은 아니라 안쓰게 될 것
+//    private LocalDateTime regDt;
+//
+//    @Column(insertable = false) // 수정될 때만 추가
+//    @UpdateTimestamp // update시에 쿼리 추가
+//    private LocalDateTime modDt;
 
 //    @Transient // DB에 반영되지 않음 // 내부에서 쓸 목적으로 사용
 //    private String tmpData;
