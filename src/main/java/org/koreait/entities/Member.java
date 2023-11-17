@@ -39,13 +39,6 @@ public class Member extends Base {
     @Enumerated(EnumType.STRING) // 설명 Enum(MemberType)에
     private MemberType mtype = MemberType.USER; // 기본타입은 USER
 
-    @ToString.Exclude
-    @OneToMany(mappedBy = "member", fetch = FetchType.EAGER) // 관계 주인 명시
-    private List<BoardData> items = new ArrayList<>();
-
-    @OneToOne
-    @JoinColumn(name = "profile_seq")
-    private MemberProfile profile;
 
 //    @Lob
 //    private String introduction; // ex 게시글
