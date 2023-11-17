@@ -10,6 +10,7 @@ spring:
 
   # JPA 설정
   jpa:
+    open-in-view: true
     properties:
       hibernate:
         # 실행되는 쿼리를 콘솔에 출력
@@ -20,7 +21,7 @@ spring:
         dialect: org.hibernate.dialect.H2Dialect
     # 엔티티에 정의된 필드명을 보고 알아서 테이블이 만들어짐
     hibernate:
-      ddlAuto: create
+      ddlAuto: update
 
 # 로거 설정
 logging:

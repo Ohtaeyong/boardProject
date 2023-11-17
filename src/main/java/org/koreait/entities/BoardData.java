@@ -27,7 +27,7 @@ public class BoardData extends BaseMember {
     @Column(nullable = false)
     private String content;
 
-    @ManyToOne(fetch = FetchType.LAZY) // 지연로딩 // 필요할 때만 가져옴
+    @ManyToOne(fetch = FetchType.LAZY) // 지연로딩(권장사항) // 필요할 때만 가져옴
     @JoinColumn(name = "userNo")
     private Member member;
 
