@@ -98,8 +98,8 @@ public class MemberController {
         List<BoardData> items = new ArrayList<>();
         for (int i = 1; i <= 10; i++) {
             BoardData item = BoardData.builder()
-                    .subject("제목")
-                    .content("내용")
+                    .subject("제목" + i)
+                    .content("내용" + i)
                     .member(member)
                     .build();
             items.add(item);
@@ -117,5 +117,6 @@ public class MemberController {
             String email = member.getEmail();
             System.out.println(email);
         }
+        System.out.println("111");
     }
 }
