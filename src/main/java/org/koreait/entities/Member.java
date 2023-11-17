@@ -1,15 +1,14 @@
 package org.koreait.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.koreait.commons.constants.MemberType;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @Builder
@@ -39,6 +38,14 @@ public class Member extends Base {
     @Column(length = 10, nullable = false)
     @Enumerated(EnumType.STRING) // 설명 Enum(MemberType)에
     private MemberType mtype = MemberType.USER; // 기본타입은 USER
+
+    @ToString.Exclude
+    @OneToMany(mappedBy = "member", fetch = FetchType.EAGER) // 관계 주인 명시
+    private List<BoardData> items = new ArrayList<>();
+
+    @OneToOne
+    @JoinColumn(name = "profile_seq")
+    private MemberProfile profile;
 
 //    @Lob
 //    private String introduction; // ex 게시글
