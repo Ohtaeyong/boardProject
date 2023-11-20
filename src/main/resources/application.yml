@@ -33,6 +33,10 @@ spring:
     cache: false
     prefix: file:src/main/resources/templates/
 
+  # 입력한 sql 초기에 실행
+  flyway:
+    enable: true
+
 file:
   upload:
     path: C:/uploads/
