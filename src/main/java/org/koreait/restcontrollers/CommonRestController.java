@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice("org.koreait.restcontrollers")
-public class CommonRestController {
+public class CommonRestController { // 기본적으로 에러페이지 JSON으로 처리
 
     @ExceptionHandler(Exception.class) // 공통적인 예외처리
     public ResponseEntity<JSONData<Object>> errorHandler(Exception e) {

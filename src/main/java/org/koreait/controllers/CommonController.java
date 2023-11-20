@@ -29,7 +29,7 @@ public class CommonController {
             status = commonException.getStatus();
         }
 
-        response.setStatus(status.value());
+        response.setStatus(status.value()); // 상태코드를 불러오기위해 commonexception 정의
 
         Map<String, String> attrs = new HashMap<>();
         attrs.put("status", String.valueOf(status.value()));
