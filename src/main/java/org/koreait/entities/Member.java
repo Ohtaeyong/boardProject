@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @Entity
 @Data @Builder
 @NoArgsConstructor @AllArgsConstructor
-public class Member {
+public class Member extends Base {
 
     @Id @GeneratedValue
     private Long userNo;
