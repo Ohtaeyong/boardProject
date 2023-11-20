@@ -21,7 +21,7 @@ spring:
         dialect: org.hibernate.dialect.H2Dialect
     # 엔티티에 정의된 필드명을 보고 알아서 테이블이 만들어짐
     hibernate:
-      ddlAuto: update
+      ddlAuto: create
 
 # 로거 설정
 logging:

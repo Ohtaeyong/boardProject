@@ -39,6 +39,10 @@ public class Member extends Base {
     @Enumerated(EnumType.STRING) // 설명 Enum(MemberType)에
     private MemberType mtype = MemberType.USER; // 기본타입은 USER
 
+    @ToString.Exclude
+    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE) //cascade = CascadeType.REMOVE -> 연쇄삭제 -> 자식이 삭제될 때 부모도 같이 삭제
+    private List<BoardData> items = new ArrayList<>();
+
 
 //    @Lob
 //    private String introduction; // ex 게시글
