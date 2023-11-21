@@ -29,8 +29,14 @@
 </head>
 <body>
 <header th:replace="~{admin/outlines/header::common}"></header>
-<main layout:fragment="content"></main>
-<footer th:replace="~{admin/outlines/footer::common}"></footer>
+<main>
+    <aside th:replace="~{admin/outlines/_side::menu}"></aside>
+    <section>
+        <th:block th:replace="~{admin/commons/_submenu::menus}"></th:block>
+        <section layout:fragment="content"></section>
+    </section>
+</main>
+<!--<footer th:replace="~{admin/outlines/footer::common}"></footer>-->
 <iframe name="ifrmProcess" class="dn"></iframe>
 </body>
 </html>

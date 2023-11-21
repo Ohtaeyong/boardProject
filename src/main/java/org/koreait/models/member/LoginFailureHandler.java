@@ -18,7 +18,7 @@ public class LoginFailureHandler implements AuthenticationFailureHandler { // �
 
         HttpSession session = request.getSession();
 
-        Utils.loginInit(session);
+        Utils.loginInit(session); // 값 초기화
 
         String email = request.getParameter("email");
         String password = request.getParameter("password");

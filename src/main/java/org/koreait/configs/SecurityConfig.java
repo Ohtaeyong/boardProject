@@ -45,19 +45,36 @@ public class SecurityConfig {
         // 로그아웃 기능 11-14
         http.logout(c -> {
            c.logoutRequestMatcher(new AntPathRequestMatcher("/member/logout"))
-                   .logoutSuccessUrl("/member/login");
+                   .logoutSuccessUrl("/member/login"); // 로그아웃 성공시 이동될 페이지
         });
         // 인증 설정 - 로그인 E
 
         // 헤더설정
-        http.headers(c -> {
+        http.headers(c -> { // 같은 출처일 때 허용(iframe)
            c.frameOptions(o -> o.sameOrigin());
         });
 
         /* 인가 설정 - 접근 통제 S */
         http.authorizeHttpRequests(c -> {
            c.requestMatchers("/mypage/**").authenticated() // 회원 전용(로그인한 회원만 접근 가능)
-                   .requestMatchers("/admin/**").hasAuthority("ADMIN") // 관리자 권한만 접근
+                   //.requestMatchers("/admin/**").hasAuthority("ADMIN") // 관리자 권한만 접근
+                   .requestMatchers( // 11-21 log의 warn 메시지로 인해 update
+                           "/front/css/**",
+                           "/front/js/**",
+                           "/front/images/**",
+
+                           "/mobile/css/**",
+                           "/mobile/js/**",
+                           "/mobile/images/**",
+
+                           "/admin/css/**",
+                           "/admin/js/**",
+                           "/admin/images/**",
+
+                           "/common/css/**",
+                           "/common/js/**",
+                           "/common/images/**",
+                           fileUploadConfig.getUrl() + "**").permitAll()
                    .anyRequest().permitAll(); // 나머지 페이지는 권한 필요없음
         });
 
@@ -79,29 +96,14 @@ public class SecurityConfig {
     }
 
 
-    @Bean
-    public WebSecurityCustomizer webSecurityCustomizer() {
-        // 시큐리티 설정이 적용될 필요가 없는 경로 설정
-
-        return w -> w.ignoring().requestMatchers(
-                "/front/css/**",
-                "/front/js/**",
-                "/front/images/**",
-
-                "/mobile/css/**",
-                "/mobile/js/**",
-                "/mobile/images/**",
-
-                "/admin/css/**",
-                "/admin/js/**",
-                "/admin/images/**",
-
-                "/common/css/**",
-                "/common/js/**",
-                "/common/images/**",
-                fileUploadConfig.getUrl() + "**");
-
-    }
+//    @Bean
+//    public WebSecurityCustomizer webSecurityCustomizer() {
+//        // 시큐리티 설정이 적용될 필요가 없는 경로 설정
+//
+//        return w -> w.ignoring().requestMatchers(
+//                );
+//
+//    } 11-21 제거
 
     @Bean
     public PasswordEncoder passwordEncoder() {

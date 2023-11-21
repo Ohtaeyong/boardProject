@@ -19,7 +19,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 
         HttpSession session = request.getSession();
 
-        Utils.loginInit(session);
+        Utils.loginInit(session); // 값 초기화
 
         // 로그인 회원정보 세션 처리 - 편의
         MemberInfo memberInfo = (MemberInfo) authentication.getPrincipal();

@@ -27,17 +27,17 @@ public class MvcConfig implements WebMvcConfigurer {
     @Autowired
     private CommonInterceptor commonInterceptor;
 
-    @Override
-    public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/")
-                .setViewName("front/main/index"); // 임시
-        
-        registry.addViewController("/mypage")
-                .setViewName("front/main/index"); // 접근 통제 확인용
-
-        registry.addViewController("/admin")
-                .setViewName("front/main/index"); // 관리자용 임시 주소
-    }
+//    @Override
+//    public void addViewControllers(ViewControllerRegistry registry) {
+//        registry.addViewController("/")
+//                .setViewName("front/main/index"); // 임시
+//
+//        registry.addViewController("/mypage")
+//                .setViewName("front/main/index"); // 접근 통제 확인용
+//
+//        registry.addViewController("/admin")
+//                .setViewName("front/main/index"); // 관리자용 임시 주소
+//    } // 컨트롤러없이 주소와 연결해주는 용도
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {

@@ -14,6 +14,9 @@ public class Utils {
     private static ResourceBundle validationsBundle;
     private static ResourceBundle errorsBundle;
 
+    //11-21 공통 틀에 없는 것 추가
+    private static ResourceBundle commonsBundle;
+
     private final HttpServletRequest request;
 
     private final HttpSession session;
@@ -21,11 +24,21 @@ public class Utils {
     static {
         validationsBundle = ResourceBundle.getBundle("messages.validations");
         errorsBundle = ResourceBundle.getBundle("messages.errors");
+        commonsBundle = ResourceBundle.getBundle("messages.commons"); // 추가
     }
 
     public static String getMessage(String code, String bundleType) {
         bundleType = Objects.requireNonNullElse(bundleType, "validation");
-        ResourceBundle bundle = bundleType.equals("error")? errorsBundle:validationsBundle;
+        ResourceBundle bundle = null;
+        // 문구에 따라서 동작할 수 있게
+        if (bundleType.equals("common")) {
+            bundle = commonsBundle;
+        } else if (bundleType.equals("error")) {
+            bundle = errorsBundle;
+        } else {
+            bundle = validationsBundle;
+        }
+
         try {
             return bundle.getString(code);
         } catch (Exception e) {
@@ -72,7 +85,7 @@ public class Utils {
     }
 
 
-    public static int getNumber(int num, int defaultValue) {
+    public static int getNumber(int num, int defaultValue) { // 페이징
         return num <= 0 ? defaultValue : num;
     }
 
@@ -81,7 +94,7 @@ public class Utils {
      * 비회원 구분은 IP + 브라우저 종류
      *
      */
-    public int guestUid() {
+    public int guestUid() { // 비회원일때 비회원을 구분하는
         String ip = request.getRemoteAddr();
         String ua = request.getHeader("User-Agent");
 
