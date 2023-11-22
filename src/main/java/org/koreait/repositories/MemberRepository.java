@@ -1,4 +1,4 @@
-package org.koreait.restcontrollers;
+package org.koreait.repositories;
 
 import org.koreait.entities.Member;
 import org.koreait.entities.QMember;

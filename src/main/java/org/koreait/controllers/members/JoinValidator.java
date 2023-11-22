@@ -3,7 +3,7 @@ package org.koreait.controllers.members;
 import lombok.RequiredArgsConstructor;
 import org.koreait.commons.validators.MobileValidator;
 import org.koreait.commons.validators.PasswordValidator;
-import org.koreait.restcontrollers.MemberRepository;
+import org.koreait.repositories.MemberRepository;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;

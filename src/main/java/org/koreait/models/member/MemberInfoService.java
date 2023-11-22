@@ -2,7 +2,7 @@ package org.koreait.models.member;
 
 import lombok.RequiredArgsConstructor;
 import org.koreait.entities.Member;
-import org.koreait.restcontrollers.MemberRepository;
+import org.koreait.repositories.MemberRepository;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
