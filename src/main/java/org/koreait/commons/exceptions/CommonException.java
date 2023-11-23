@@ -1,7 +1,11 @@
 package org.koreait.commons.exceptions;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.http.HttpStatus;
 
+@Setter
+@Getter
 public class CommonException extends RuntimeException{
     private HttpStatus status;
 
@@ -14,7 +18,10 @@ public class CommonException extends RuntimeException{
         this.status = status;
     }
 
-    public HttpStatus getStatus() {
-        return status;
-    }
+    //BoardNotFoundException 추가후
+
+
+//    public HttpStatus getStatus() {
+//        return status;
+//    } // setter getter 추가했으므로 제거
 }

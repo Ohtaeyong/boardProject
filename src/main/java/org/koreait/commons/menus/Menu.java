@@ -25,7 +25,7 @@ public class Menu {
         } else if (code.equals("board")) { // 게시판 하위 메뉴
             menus.add(new MenuDetail("board", "게시판 목록", "/admin/board"));
             menus.add(new MenuDetail("register", "게시판 등록", "/admin/board/add"));
-            menus.add(new MenuDetail("posts", "게시글 관리", "/admin/board/posts"));
+            menus.add(new MenuDetail("posts", "게시글 관리", "/admin/board/posts")); // 스스로 제작
         }
 
         return menus;
