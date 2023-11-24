@@ -47,7 +47,7 @@ public class BoardController implements ScriptExceptionProcess {
     @PostMapping("/save")
     public String save(@Valid BoardConfigForm form, Errors errors, Model model) {
         // mode값에 따라서 구분
-        String mode = form.getMode();
+        String mode = Objects.requireNonNullElse(form.getMode(), "add"); // 11-24 테스트 수정
         commonProcess(mode, model);
 
         if (errors.hasErrors()) {

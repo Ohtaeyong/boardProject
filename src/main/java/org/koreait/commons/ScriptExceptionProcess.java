@@ -22,6 +22,6 @@ public interface ScriptExceptionProcess { // 스크립트를 선별처리하기 
 
         model.addAttribute("script", script);
 
-        return "commons/_execute_script";
+        return "common/_execute_script";
     }
 }
