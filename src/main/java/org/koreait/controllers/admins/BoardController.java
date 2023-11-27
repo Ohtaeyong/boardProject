@@ -3,8 +3,12 @@ package org.koreait.controllers.admins;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.koreait.commons.ListData;
 import org.koreait.commons.ScriptExceptionProcess;
+import org.koreait.commons.constants.BoardAuthority;
 import org.koreait.commons.menus.Menu;
+import org.koreait.entities.Board;
+import org.koreait.models.board.config.BoardConfigInfoService;
 import org.koreait.models.board.config.BoardConfigSaveService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,9 +26,16 @@ public class BoardController implements ScriptExceptionProcess {
 
     private final BoardConfigSaveService saveService;
 
+    private final BoardConfigInfoService infoService;
+
     @GetMapping // 따로 추가하지 않을 시 ("/admin/board")
-    public String list(Model model) {
+    public String list(@ModelAttribute BoardSearch search, Model model) {
         commonProcess("list", model);
+
+        ListData<Board> data = infoService.getList(search); // 연동
+
+        model.addAttribute("items", data.getContent());
+        model.addAttribute("pagination", data.getPagination()); // -> 템플릿으로 (list.html)
 
         return "admin/board/list";
     }
@@ -37,7 +48,7 @@ public class BoardController implements ScriptExceptionProcess {
     }
 
     @GetMapping("/edit/{bId}")
-    public String update(@PathVariable String bId, Model model) {
+    public String update(@PathVariable String bId, Model model) { // 새로운 버전에서는 @PathVariable("bId") ()정의를 해줘야함
         commonProcess("edit", model);
 
         return "admin/board/edit";
@@ -70,5 +81,8 @@ public class BoardController implements ScriptExceptionProcess {
         model.addAttribute("submenus", Menu.gets("board"));
         // 서브메뉴코드 불러오기
         model.addAttribute("subMenuCode", Menu.getSubMenuCode(request));
+
+        // enum클래스 작성 후 추가
+        model.addAttribute("authorities", BoardAuthority.getList()); // list.html로 이동
     }
 }
