@@ -50,7 +50,7 @@ public class MemberController implements CommonProcess {
         return "redirect:/member/login";
     }
 
-    @GetMapping("/login")
+    @GetMapping("/login") // @RequestParam(name = "redirectURL", required = false) String redirectURL, Model model => 버전업시 매개변수 이걸로 변경
     public String login(String redirectURL, Model model) { // post는 security가 알아서 처리
         commonProcess(model, Utils.getMessage("로그인", "common"));
 

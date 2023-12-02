@@ -19,4 +19,13 @@
             </a>
         </span>
 </script>
+<!-- 12-02 일반적인 첨부형식 추가 (다운로드와 삭제 두가지만) -->
+<script id="tpl_file" type="text/html" th:fragment="tpl_file">
+    <span class="file_items" id="file_[id]">
+            <a th:href="@{/file/download/[id]}">[fileName]</a>
+            <a th:href="@{/file/delete/[id]}" onclick="return confirm('정말 삭제하시겠습니까?');" target="ifrmProcess" class="remove">
+                <i class="xi-close-min"></i>
+            </a>
+        </span>
+</script>
 </html>

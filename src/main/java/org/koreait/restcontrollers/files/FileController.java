@@ -34,7 +34,10 @@ public class FileController {
      * @param location 파일이 위치하는 곳
      * @return 업로드된 파일 정보를 담은 JSON 응답 데이터
      */
-    @PostMapping("/upload")
+    @PostMapping("/upload") 
+    // @RequestParam(value = "files", required = false), MultipartFile[] files,
+    // @RequestParam(value = "gid", required = false) String gid,
+    // @RequestParam(value = "location", required = false) String location -> 버전업으로 인한 추가
     public ResponseEntity<JSONData<List<FileInfo>>> uploadPs(MultipartFile[] files, String gid, String location) {
         List<FileInfo> items = uploadService.upload(files, gid, location);
 
@@ -48,7 +51,7 @@ public class FileController {
      * @param id 다운로드할 파일의 고유 번호
      */
     @RequestMapping("/download/{id}")
-    public void download(@PathVariable Long id) {
+    public void download(@PathVariable Long id) { // @PathVariable("id")
         downloadService.download(id);
     }
 
