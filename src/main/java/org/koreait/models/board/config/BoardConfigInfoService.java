@@ -65,7 +65,6 @@ public class BoardConfigInfoService { // 단일 조회, 목록 조회
         String sopt = Objects.requireNonNullElse(search.getSopt(), "ALL");
         String skey = search.getSkey();
 
-        
 
         if (StringUtils.hasText(skey)) { // skey가 있으면
             skey = skey.trim(); // 공백제거
@@ -87,7 +86,7 @@ public class BoardConfigInfoService { // 단일 조회, 목록 조회
 
         // 사용 여부
         List<Boolean> active = search.getActive();
-        if (active != null && active.isEmpty()) { // null이 아니고 비어있지 않을 때
+        if (active != null && !active.isEmpty()) { // null이 아니고 비어있지 않을 때
             andBuilder.and(board.active.in(active));
         }
 
