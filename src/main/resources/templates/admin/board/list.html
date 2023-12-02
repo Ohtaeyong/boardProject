@@ -3,9 +3,51 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{admin/layouts/main}">
 <section layout:fragment="content">
+    <h1>게시판 조회</h1>
+    <form name="frmSearch" method="get" th:action="@{/admin/board}" autocomplete="off" th:object="${boardSearch}">
+        <table class="table-cols">
+            <tr>
+                <th>키워드 검색</th>
+                <td colspan="3">
+                    <div class="input_grp">
+                        <select name="sopt" th:field="*{sopt}">
+                            <option value="ALL">통합검색</option>
+                            <option value="bId">게시판 아이디</option>
+                            <option value="bName">게시판 이름</option>
+                        </select>
+                        <input type="text" name="skey" th:field="*{skey}">
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <th>사용여부</th>
+                <td>
+                    <span>
+                        <input type="checkbox" name="active" value="true" id="active_true" th:field="*{active}">
+                        <label for="active_true">사용</label>
+                    </span>
+                    <span>
+                        <input type="checkbox" name="active" value="true" id="active_false" th:field="*{active}">
+                        <label for="active_false">미사용</label>
+                    </span>
+                </td>
+                <th>글쓰기 권한</th>
+                <td>
+                    <span th:each="auth : ${authorities}">
+                        <input type="checkbox" name="authority" th:value="${auth[0]}" th:id="${'auth_' + auth[0]}" th:field="*{authority}">
+                        <label th:for="${'auth_' + auth[0]}" th:text="${auth[1]}"></label>
+                    </span>
+                </td>
+            </tr>
+        </table>
+        <div class="search_btn">
+            <button type="submit">조회하기</button>
+        </div>
+    </form>
+
     <h1 th:text="${pageTitle}"></h1>
 
-    <form name="frmList" method="post" th:action="@{/admin/board}" target="iframProcess" autocomplete="off">
+    <form name="frmList" method="post" th:action="@{/admin/board}" target="ifrmProcess" autocomplete="off">
         <input type="hidden" name="_method" value="PATCH">
         <table class="table-rows">
             <thead>
@@ -46,7 +88,7 @@
                         <select th:name="${'authority_' + status.index}"> <!-- constants -> BoardAuthority로 이동 -->
                             <option th:if="${authorities != null && !authorities.isEmpty()}"
                             th:each="auth : ${authorities}" th:value="${auth[0]}"
-                            th:text="${auth[1]}" th:selected="${auth[1] == item.authority.name()}"></option>
+                            th:text="${auth[1]}" th:selected="${auth[0] == item.authority.name()}"></option> <!-- 12.02 th:selected 의 auth[0]으로 수정-->
                         </select>
                     </td>
                     <td>

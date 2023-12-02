@@ -8,6 +8,7 @@ import org.koreait.commons.ScriptExceptionProcess;
 import org.koreait.commons.constants.BoardAuthority;
 import org.koreait.commons.menus.Menu;
 import org.koreait.entities.Board;
+import org.koreait.models.board.config.BoardConfigDeleteService;
 import org.koreait.models.board.config.BoardConfigInfoService;
 import org.koreait.models.board.config.BoardConfigSaveService;
 import org.springframework.stereotype.Controller;
@@ -15,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Objects;
 
 @Controller("adminBoardController") // 이름이 겹칠 수 있다
@@ -28,6 +30,8 @@ public class BoardController implements ScriptExceptionProcess {
 
     private final BoardConfigInfoService infoService;
 
+    private final BoardConfigDeleteService deleteService;
+
     @GetMapping // 따로 추가하지 않을 시 ("/admin/board")
     public String list(@ModelAttribute BoardSearch search, Model model) {
         commonProcess("list", model);
@@ -40,6 +44,28 @@ public class BoardController implements ScriptExceptionProcess {
         return "admin/board/list";
     }
 
+    // 12-02 추가 시작
+    @PatchMapping // 목록수정
+    public String updateList(@RequestParam(name="idx", required = false) List<Integer> idxes, Model model) {
+
+        saveService.update(idxes); // 연동
+
+        // 수정 완료시 부모창을 새로 고침
+        model.addAttribute("script", "parent.location.reload();"); // BoardConfigSaveService로 이동
+
+        return "common/_execute_script";
+    }
+
+    @DeleteMapping
+    public String deleteList(@RequestParam(name = "idx", required = false) List<Integer> idxes, Model model) {
+        deleteService.delete(idxes);
+
+        // 삭제 성공시 부모창 새로고침
+        model.addAttribute("script", "parent.location.reload();"); // BoardConfigDeleteService로 이동
+
+        return "common/_execute_script";
+    }
+
     @GetMapping("/add")
     public String register(@ModelAttribute BoardConfigForm form, Model model) { // 등록
         commonProcess("add", model);
@@ -50,6 +76,9 @@ public class BoardController implements ScriptExceptionProcess {
     @GetMapping("/edit/{bId}")
     public String update(@PathVariable String bId, Model model) { // 새로운 버전에서는 @PathVariable("bId") ()정의를 해줘야함
         commonProcess("edit", model);
+
+        BoardConfigForm form = infoService.getForm(bId); // configinfoservice에서 추가한거 연동
+        model.addAttribute("boardConfigForm", form);
 
         return "admin/board/edit";
     }
