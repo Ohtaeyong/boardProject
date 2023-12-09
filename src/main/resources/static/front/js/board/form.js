@@ -6,6 +6,12 @@ window.addEventListener("DOMContentLoaded", function() {
         window.editor = editor;
     })
     .catch((err) => console.error(err));
+
+    /* 이미지 본문 추가 이벤트 처리 12-09 12:41 */
+    const insertEditors = document.getElementsByClassName("insert_editor");
+    for (const el of insertEditors) {
+        el.addEventListener("click", (e) => insertEditor(e.currentTarget.dataset.url));
+    }
 });
 
 /**
